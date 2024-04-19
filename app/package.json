@@ -16,7 +16,7 @@
     "concurrently": "^8.2.1"
   },
   "scripts": {
-    "start": "react-scripts start",
+    "start": "WATCHPACK_POLLING=true react-scripts start",
     "dev": "concurrently --kill-others \"npm run start\"",
     "build": "react-scripts build",
     "test": "react-scripts test",
