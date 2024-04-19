@@ -13,10 +13,9 @@ services:
     ports:
       - "3000:3000"
     volumes:
-      - ./app/node_modules:/app/node_modules
-#    extra_hosts:
-#      # Ensure that host.docker.internal is correctly defined on Linux
-#      - host.docker.internal:host-gateway
+#      - ./app/node_modules:/usr/src/app/node_modules
+      - ./app/src:/usr/src/app/src
+  # visualiser
   visualize:
     build:
         dockerfile: ./visualize/Dockerfile
@@ -25,16 +24,11 @@ services:
       - "9000:9000"
       - "8050:8050"
     volumes:
-      - ./visualize/node_modules:/app/node_modules
+#      - ./visualize/node_modules:/usr/src/app/node_modules
+      - ./visualize/src:/usr/src/app/src
+  # model prediction
   flask:
     build:
       dockerfile: ./flask/Dockerfile
     volumes:
       - ./flask:/app
-#  npm:
-#    build:
-#      dockerfile: ./node/Dockerfile
-#    volumes:
-#      - "./app/node_modules:/app/node_modules"
-#volumes:
-#  mysqldata:

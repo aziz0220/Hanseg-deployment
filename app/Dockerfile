@@ -1,8 +1,8 @@
 FROM node:20.11.0
-WORKDIR /app
-COPY ./app /.
+WORKDIR /usr/src/app
+COPY ./app ./
 RUN npm install
-COPY ./app .
+#COPY ./app .
 #mainapp
 EXPOSE 3000
 CMD [ "npm","run", "dev" ]
