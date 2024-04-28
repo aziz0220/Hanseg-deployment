@@ -34,7 +34,7 @@ import {
 
 const items = [
   {
-    src: require("assets/img/soroush-karimi.jpg"),
+    src: require("assets/img/basic.png"),
     altText: "Somewhere",
     caption: "Somewhere",
   },

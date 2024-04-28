@@ -108,7 +108,6 @@ function App() {
           maxFrame: volume.nTotalFrame4D,
         };
       });
-      console.log(newImages);
       setImages(newImages);
     },
     [activeImage, nv, setImages]
@@ -527,34 +526,80 @@ const handleFileChange = (e) => {
 };
 
 
-  const addPredictedVolume = useCallback(
-    async () => {
-      let url = `http://localhost:8050/prediction.nrrd`;
-      console.log(url);
-      let image= await NVImage.loadFromUrl({url:url})
-      await nv.addVolume(image);
-      let volumes = nv.volumes;
-      let newImages = volumes.map((volume, index) => {
-        return {
-          url: volume.url,
-          name: volume.name,
-          index: index,
-          id: volume.id,
-          color: volume.colormap,
-          active: index === activeImage,
-          frame: volume.frame4D,
-          maxFrame: volume.nTotalFrame4D,
-        };
-      });
-      console.log(newImages);
-      setImages(newImages);
-    },
-    [activeImage, nv, setImages]
-  );
+const addPredictedVolume = useCallback(
+  async () => {
+    let url = `http://localhost:8050/prediction.nrrd`;
+    try {
+      const image = await NVImage.loadFromUrl({ url: url });
+      if (image.constructor.name === "_NVImage") {
+        await nv.addVolume(image);
+        const volumes = nv.volumes;
+
+        const newImages = volumes.map((volume, index) => {
+          return {
+            url: volume.url,
+            name: volume.name,
+            index: index,
+            id: volume.id,
+            color: volume.colormap,
+            active: index === activeImage,
+            frame: volume.frame4D,
+            maxFrame: volume.nTotalFrame4D,
+          };
+        });
+        setImages(newImages);
+        return newImages;
+      }
+    } catch (error) {
+      console.error("Error loading image:", error);
+      return null;
+    }
+  },
+  [activeImage, nv, setImages]
+);
+ const [serverResponse, setServerResponse] = useState(null);
+  const [hasPredictionFile, setHasPredictionFile] = useState(false);
+  const [error, setError] = useState(null);
+
   useEffect(() => {
-    // This effect runs once after the initial render
-    addPredictedVolume();
-  }, []); // Empty dependency array means this effect runs only once
+    const fetchData = async () => {
+      try {
+        const response = await fetch('http://localhost:8050');
+        const html = await response.text();
+        setServerResponse(html);
+      } catch (error) {
+        console.error('Error fetching server response:', error);
+        setError(error);
+      }
+    };
+
+    fetchData();
+  }, ['' ]);
+
+  useEffect(() => {
+    if (serverResponse) {
+      // **Less secure parsing - use with caution!**
+      const regex = /prediction\.nrrd/g;
+      const hasPredictionFile = regex.test(serverResponse); // True if the file exists pattern is found, false otherwise
+      setHasPredictionFile(hasPredictionFile);
+  if (hasPredictionFile) {
+    addPredictedVolume()
+      .then((newImages) => {
+        if (newImages) { // Check for successful image processing
+          setImages(newImages);
+        }
+      })
+      .catch((error) => {
+        console.error("Error adding predicted volume:", error);
+      });
+  }}
+
+  }, [serverResponse]);
+
+// useEffect(() => {
+//   console.log(hasPredictionFile)
+//
+// }, []); // Empty dependency array means this effect runs only once
 
   return (
     // wrap the app in the Niivue context

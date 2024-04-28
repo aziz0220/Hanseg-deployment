@@ -18,13 +18,23 @@
 */
 /*eslint-disable*/
 import React from "react";
-
+import { Link } from "react-router-dom";
 // reactstrap components
 import {Button, Container} from "reactstrap";
 
 // core components
 
 function IndexHeader() {
+    function smoothScroll(targetId) {
+  const targetElement = document.getElementById(targetId);
+  if (targetElement) {
+    targetElement.scrollIntoView({
+      behavior: 'smooth',
+      block: 'start',
+    });
+  }
+}
+
   return (
     <>
       <div
@@ -69,18 +79,16 @@ function IndexHeader() {
               className="btn-round"
               outline
               color="neutral"
-              href="/register-page"
               size="lg"
-              target="_blank"
+              onClick={() => smoothScroll('section-dark')}
           >
             Get Started
           </Button>
 </div>
         <h6 className="category category-absolute">
 
-          PFA 2 {" "}
+           {" "}
           <a
-              href="https://www.creative-tim.com?ref=pkr-index-page"
               target="_blank"
           >
             {/*<img*/}

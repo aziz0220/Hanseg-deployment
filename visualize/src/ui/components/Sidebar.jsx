@@ -11,7 +11,7 @@ export function Sidebar({ children, asColumn = true, ...props }) {
         alignItems: 'flex-start',
         height: '100%',
         minHeight: '100%',
-        minWidth: Math.round(window.screen.width * 0.3), // calculate 20% of the window width
+        minWidth: Math.round(window.screen.width * 0.2), // calculate 20% of the window width
         maxWidth: Math.round(window.screen.width * 0.3), // calculate 30% of the window width
         backgroundColor: 'white',
         padding: 1,
@@ -28,7 +28,7 @@ export function Sidebar({ children, asColumn = true, ...props }) {
           marginBottom: 0.5,
         }}
       >
-        Layers
+        Control Panel
       </Typography>
       {children}
     </Box>

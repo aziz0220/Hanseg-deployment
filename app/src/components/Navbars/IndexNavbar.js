@@ -1,24 +1,8 @@
-/*!
 
-=========================================================
-* Paper Kit React - v1.3.2
-=========================================================
-
-* Product Page: https://www.creative-tim.com/product/paper-kit-react
-
-* Copyright 2023 Creative Tim (https://www.creative-tim.com)
-* Licensed under MIT (https://github.com/creativetimofficial/paper-kit-react/blob/main/LICENSE.md)
-
-* Coded by Creative Tim
-
-=========================================================
-
-* The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
-
-*/
 import React from "react";
 // nodejs library that concatenates strings
 import classnames from "classnames";
+
 // reactstrap components
 import {
   Button,
@@ -32,6 +16,9 @@ import {
 } from "reactstrap";
 
 function IndexNavbar() {
+    const handleReload = () => {
+    window.location.reload(); // Reload the current page
+  };
   const [navbarColor, setNavbarColor] = React.useState("navbar-transparent");
   const [navbarCollapse, setNavbarCollapse] = React.useState(false);
 
@@ -67,9 +54,10 @@ function IndexNavbar() {
         <div className="navbar-translate">
           <NavbarBrand
             data-placement="bottom"
-            href="/index"
+            href="#"
             target="_blank"
-            title="Coded by Creative Tim"
+            title="Segment 31 organs"
+            onClick={handleReload}
           >
             HaN-Seg Challenge
           </NavbarBrand>
@@ -145,17 +133,17 @@ function IndexNavbar() {
             </NavItem>
             <NavItem>
               <NavLink
-                href="https://demos.creative-tim.com/paper-kit-react/#/documentation?ref=pkr-index-navbar"
+                href="predict"
                 target="_blank"
               >
-                <i className="nc-icon nc-book-bookmark" /> Documentation
+                <i className="nc-icon nc-book-bookmark" /> Predict
               </NavLink>
             </NavItem>
             <NavItem>
               <Button
                 className="btn-round"
                 color="danger"
-                href="https://www.creative-tim.com/product/paper-kit-pro-react?ref=pkr-index-navbar"
+                href=""
                 target="_blank"
               >
                 <i className="nc-icon nc-spaceship"></i> Upgrade to Pro

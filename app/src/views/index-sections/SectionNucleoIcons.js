@@ -50,7 +50,7 @@ function SectionNucleoIcons() {
               <Button
                 className="btn-round ml-1"
                 color="danger"
-                href="https://nucleoapp.com/?ref=1712"
+                href=""
                 outline
                 target="_blank"
               >
