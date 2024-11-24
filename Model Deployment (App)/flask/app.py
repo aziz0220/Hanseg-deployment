@@ -5,6 +5,7 @@ import tempfile
 import tensorflow as tf
 from predict_case import predict_case
 import requests
+from dotenv import load_dotenv
 os.environ["TF_CPP_MIN_LOG_LEVEL"] = "2"
 
 app = Flask(__name__)
@@ -12,12 +13,15 @@ CORS(app, resources={r"/upload": {"origins": "*"}})
 
 # Global variable to store the loaded model
 model = None
+model_path = os.getenv('MODEL_PATH')
+server_url = os.getenv('SERVER_URL')
 
 def load_model():
-    global model
-    model_path = './models/model_3_epoch.h5'
-    model = tf.keras.models.load_model(model_path)
-    print("Model loaded successfully")
+    try:
+        model = tf.keras.models.load_model(model_path)
+        print("Model loaded successfully")
+    except: 
+        print("failed to load the model")
 
 # Load the model when the server starts
 load_model()
@@ -39,7 +43,6 @@ def upload_file():
     prediction_path = os.path.join(temp_dir.name, 'prediction.nrrd')
     # Perform prediction using the global model
     predict_case(model, temp_file_path, prediction_path)
-    server_url = 'http://hansegdeployment-visualize-1:9000/file'
     files = {'file': open(prediction_path, 'rb')}
     print("the files :", files)
     try:
@@ -56,4 +59,4 @@ def upload_file():
     return jsonify({'message': 'File uploaded and prediction completed'})
 
 if __name__ == '__main__':
-    app.run(host='0.0.0.0', port=8000)  # Change the port as needed
+    app.run(host='0.0.0.0', port=8000)
