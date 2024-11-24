@@ -32,7 +32,7 @@ The project involves:
 
 ## **Model Setup**
 1. Download the latest deployed model from the OneDrive link:  
-   **[Download Model](https://xbZFI4P_OoZffAB7zA?e=uJU3ne)**  
+   **[Download Model](https://mohetn-my.sharepoint.com/:u:/g/personal/aziz_benamor_ensit_u-tunis_tn/EWkmH6amjc5HrtE2tmlE7dABhuvoxbZFI4P_OoZffAB7zA?e=uJU3ne)**  
    *Note: Requires a domain account (@ensit.u-tunis.tn).*
 
 2. Place the model in the following directory:
