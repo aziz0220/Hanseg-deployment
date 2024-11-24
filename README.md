@@ -1,4 +1,3 @@
-```markdown
 # HaNSeg Challenge Deployment
 
 This project showcases the work done during the End of the 2nd Year Project, focusing on deploying a Head and Neck segmentation model as a web application. The model leverages deep learning techniques to predict segmentations of 31 organs at risk within the Head and Neck region, offering a practical tool for medical professionals.
