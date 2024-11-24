@@ -68,11 +68,6 @@ COPY . .
 
 # Expose the port used by the Flask app
 EXPOSE 8000
-
-# Set the environment variable for the model path (modify the path)
-# ENV MODEL_PATH=/app/model_3_epoch.h5
-# Change this to your model location
-
 # Start the Flask app using gunicorn (recommended for production)
 # CMD [ "gunicorn", "--bind", "0.0.0.0:8000", "app:app" ]
 CMD python app.py

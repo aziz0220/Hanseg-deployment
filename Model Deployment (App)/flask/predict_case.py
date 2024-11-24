@@ -16,8 +16,6 @@ global case_names
 SLICE_X = True
 SLICE_Y = False
 SLICE_Z = False
-data_dir = '/mnt/c/Users/benam/Downloads/HaN-Seg/HaN-Seg/set_4/'
-input_path = '/mnt/c/Users/benam/Downloads/HaN-Seg/HaN-Seg/set_2/'
 case_names = [f"case_{num:02d}" for num in range(1, 43)]
 LABEL_dict = {
     "background": 0,
@@ -176,29 +174,12 @@ def normalizeImageIntensityRange(img, clip_min=0, shiftThreshold=1):
         shifted_img -= minimg
         shifted_img = np.clip(shifted_img, clip_min, None)
     return shifted_img
-def center_crop_volumes(case_number):
-    ct_image, mri_image, mask = load_data_sitk(case_number)
-    mr_resampled = sitk.Resample(mri_image, ct_image)
-    ct_array = sitk.GetArrayFromImage(ct_image)
-    mri_array = sitk.GetArrayFromImage(mr_resampled)
-    mask_array = sitk.GetArrayFromImage(mask)
-    return ct_array, mri_array, mask_array
-
-def load_data_sitk(case_number):
-    CT_volume = sitk.ReadImage(input_path + f"/{case_names[case_number]}/{case_names[case_number]}_IMG_CT.nrrd")
-    MR_volume = sitk.ReadImage(input_path + f"/{case_names[case_number]}/{case_names[case_number]}_IMG_MR_T1.nrrd")
-    mask = sitk.ReadImage(
-        input_path + f"/{case_names[case_number]}/{case_names[case_number]}_stacked_segments.seg.nrrd")
-    return CT_volume, MR_volume, mask
-
 
 def predict_case(model, nrrd_path, output_path, normalize=False, case_number=0):
     data, header = nrrd.read(nrrd_path)
     ct_image = sitk.ReadImage(nrrd_path)
     cropped_ct_image = sitk.GetArrayFromImage(ct_image)
-    # CT_volume, MR_volume, mask = center_crop_volumes(case_number)
     cropped_mr_image = cropped_ct_image
-    # cropped_ct_image, cropped_mr_image, cropped_mask = CT_volume, MR_volume, mask
     if normalize:
         cropped_mr_image = normalizeImageIntensityRange(cropped_mr_image)
     sliced_data = sliceVolumeImage(cropped_ct_image)
