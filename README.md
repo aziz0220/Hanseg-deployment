@@ -61,7 +61,7 @@ The project involves:
 2. **Performance Optimization**:
    - Reduced image processing time significantly using Flask and GPU optimizations.
 3. **Visualization Integration**:
-   - Leveraged **Niivue** for interactive 3D visualization of medical images.
+   - Leveraged **[Niivue](https://github.com/niivue/desktop)** for interactive 3D visualization of medical images.
 4. **React Application**:
    - Developed a React-based web interface for seamless interaction with Flask and Niivue.
 
